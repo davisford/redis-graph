@@ -147,11 +147,13 @@ class AlgebraicExpressionTest: public ::testing::Test {
             Node *n = (Node*)DataBlockIterator_Next(it);
             SIValue name = SI_StringVal(persons[i]);
             Node_Add_Properties(n, 1, &default_property_name, &name);
+            SIValue_Free(&name);
         }
         for(int i = 0; i < country_count; i++) {
             Node *n = (Node*)DataBlockIterator_Next(it);
             SIValue name = SI_StringVal(countries[i]);
             Node_Add_Properties(n, 1, &default_property_name, &name);
+            SIValue_Free(&name);
         }
 
         DataBlockIterator_Free(it);
@@ -610,5 +612,6 @@ TEST_F(AlgebraicExpressionTest, ExpressionExecute) {
     AlgebraicExpression_Free(ae[0]);
     free(ae);
     free(res);
+    GrB_Matrix_free(&expected);
     GrB_Matrix_free(&M);
 }

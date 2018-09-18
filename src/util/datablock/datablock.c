@@ -156,7 +156,7 @@ void DataBlock_FreeTop(DataBlock *dataBlock, size_t count) {
 }
 
 void DataBlock_Free(DataBlock *dataBlock) {
-    for(int i = 0; i < dataBlock->blockCount; i++)
+    for(size_t i = 0; i < dataBlock->blockCount; i++)
         _Block_Free(dataBlock->blocks[i]);
 
     free(dataBlock->blocks);

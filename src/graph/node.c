@@ -64,6 +64,5 @@ void Node_Free(Node* node) {
 	if(node->incoming_edges)
 		Vector_Free(node->incoming_edges);
 
-	free(node);
-	node = NULL;
+  // Don't free node itself, as it's embedded in a datablock
 }

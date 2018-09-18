@@ -480,18 +480,28 @@ ResultSetStatistics CommitGraph(RedisModuleCtx *ctx, const QueryGraph *qg, Graph
 /* Frees entire graph. */
 void QueryGraph_Free(QueryGraph* g) {
     /* Free graph's nodes. */
-    int i;
-    int nodeCount = g->node_count;
+    size_t i;
+    size_t nodeCount = g->node_count;
+    size_t edgeCount = g->edge_count;
 
     for(i = 0; i < nodeCount; i++) {
         Node* n = g->nodes[i];
         Node_Free(n);
+        free(n);
     }
 
-    /* TODO: Free edges. */
+    for(i = 0; i < edgeCount; i++) {
+        Edge *e = g->edges[i];
+        Edge_Free(e);
+        free(e);
+    }
 
     /* Edges are freed internally by nodes. */
     free(g->nodes);
     free(g->edges);
+
+    free(g->node_aliases);
+    free(g->edge_aliases);
+
     free(g);
 }

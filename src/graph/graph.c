@@ -660,22 +660,6 @@ void Graph_CommitPendingOps(Graph *g) {
 void Graph_Free(Graph *g) {
     assert(g);
 
-
-    /* TODO: Free nodes, currently we can't free nodes
-     * as they are embedded within the chain block, as a result
-     * we can't call free on a single node.
-     * on the other hand when freeing a query graph, we're able
-     * to call free on node. this will be resolved once we'll
-     * introduce property stores. */
-
-    // Free each node.
-    // Node *node;
-    // NodeIterator *it = Graph_ScanNodes(g);
-    // while((node = NodeIterator_Next(it)) != NULL) {
-    //     Node_Free(node);
-    // }
-    // NodeIterator_Free(it);
-
     // Free matrices.
     GrB_Matrix m;
     m = Graph_GetAdjacencyMatrix(g);
@@ -693,6 +677,14 @@ void Graph_Free(Graph *g) {
         GrB_Matrix_free(&m);
     }
     free(g->_labels);
+
+    // Free node properties.
+    DataBlockIterator *it = Graph_ScanNodes(g);
+    Node *n;
+    while ((n = (Node *)DataBlockIterator_Next(it)) != NULL) {
+      Node_Free(n);
+    }
+    DataBlockIterator_Free(it);
 
     // Free node blocks.
     DataBlock_Free(g->nodes);

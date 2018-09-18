@@ -87,5 +87,5 @@ void Edge_Free(Edge* edge) {
 		free(edge->relationship);
 	}
 	
-	free(edge);
+  // Don't free edge itself, as it's embedded in a datablock
 }
