@@ -97,7 +97,7 @@ class GraphTest : public ::testing::Test
     void _test_node_creation(Graph *g, size_t node_count)
     {
         GrB_Index ncols, nrows, nvals;
-        DataBlockIterator *it;
+        DataBlockIterator *it = NULL;
 
         // Create nodes.
         Graph_CreateNodes(g, node_count, NULL, &it);

@@ -26,6 +26,8 @@ class AggregateTest: public ::testing::Test {
     }
 
     static void TearDownTestCase() {
+      AR_RegisterFree();
+      Agg_Free();
     }
 };
 

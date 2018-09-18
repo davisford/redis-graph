@@ -90,7 +90,7 @@ void _GraphType_LoadNodes(RedisModuleIO *rdb, Graph *g) {
     uint64_t nodeCount = RedisModule_LoadUnsigned(rdb);
     if(nodeCount == 0) return;
 
-    DataBlockIterator *iter;
+    DataBlockIterator *iter = NULL;
     Graph_CreateNodes(g, nodeCount, NULL, &iter);
 
     Node *n;
@@ -125,7 +125,7 @@ void _GraphType_LoadEdges(RedisModuleIO *rdb, Graph *g) {
         connections[i].relationId = RedisModule_LoadUnsigned(rdb);
     }
 
-    DataBlockIterator *iter;
+    DataBlockIterator *iter = NULL;
     Graph_ConnectNodes(g, connections, edgeCount, &iter);
     free(connections);
 

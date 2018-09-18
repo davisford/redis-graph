@@ -212,7 +212,7 @@ void _CommitNewEntities(OpCreate *op) {
             }
         }
 
-        DataBlockIterator *it;
+        DataBlockIterator *it = NULL;
         size_t baseNodeID = Graph_NodeCount(op->g);
         Graph_CreateNodes(op->g, node_count, labels, &it);
         _SetEntitiesProperties(op, op->created_nodes, it, baseNodeID);
@@ -248,7 +248,7 @@ void _CommitNewEntities(OpCreate *op) {
             }
         }
 
-        DataBlockIterator *it;
+        DataBlockIterator *it = NULL;
         EdgeID baseId = Graph_EdgeCount(op->g);
         Graph_ConnectNodes(op->g, connections, edge_count, &it);
         _SetEntitiesProperties(op, op->created_edges, it, baseId);
@@ -312,5 +312,13 @@ void OpCreateFree(OpBase *ctx) {
 
     if(op->edges_to_create != NULL) {
         free(op->edges_to_create);
+    }
+
+    if (op->created_nodes) {
+      Vector_Free(op->created_nodes);
+    }
+
+    if (op->created_edges) {
+      Vector_Free(op->created_edges);
     }
 }

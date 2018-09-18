@@ -122,8 +122,12 @@ void DataBlock_AddItems(DataBlock *dataBlock, size_t itemCount, DataBlockIterato
     if(it) {
         int step = 1;
         Block *block = ACTIVE_BLOCK(dataBlock);
-        *it = DataBlockIterator_New(block, dataBlock->itemCount,
-                                    dataBlock->itemCount + itemCount, step);
+        if (*it) {
+            DataBlockIterator_Extend(*it, itemCount);
+        } else {
+            *it = DataBlockIterator_New(block, dataBlock->itemCount,
+                                        dataBlock->itemCount + itemCount, step);
+        }
     }
 
     dataBlock->itemCount += itemCount;

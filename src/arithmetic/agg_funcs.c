@@ -430,3 +430,7 @@ void Agg_RegisterFuncs() {
     Agg_RegisterFunc("stDev", Agg_StdevFunc);
     Agg_RegisterFunc("stDevP", Agg_StdevPFunc);
 }
+
+void Agg_Free() {
+    Agg_RegistryFree();
+}

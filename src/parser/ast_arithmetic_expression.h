@@ -35,9 +35,9 @@ typedef struct {
     union {
         SIValue constant;
         struct {
-			char *alias;
-			char *property;
-		} variadic;
+            char *alias;
+            char *property;
+        } variadic;
     };
     AST_ArithmeticExpression_OperandNodeType type;
 } AST_ArithmeticExpressionOperand;
@@ -50,7 +50,7 @@ typedef struct {
     AST_ArithmeticExpression_NodeType type;
 } AST_ArithmeticExpressionNode;
 
-AST_ArithmeticExpressionNode* New_AST_AR_EXP_VariableOperandNode(char* alias, char *property);
+AST_ArithmeticExpressionNode* New_AST_AR_EXP_VariableOperandNode(char *alias, char *property);
 AST_ArithmeticExpressionNode* New_AST_AR_EXP_ConstOperandNode(SIValue constant);
 AST_ArithmeticExpressionNode* New_AST_AR_EXP_OpNode(char *func, Vector *args);
 

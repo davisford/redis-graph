@@ -7,7 +7,7 @@
 
 #include "ast_arithmetic_expression.h"
 
-AST_ArithmeticExpressionNode* New_AST_AR_EXP_VariableOperandNode(char* alias, char *property) {
+AST_ArithmeticExpressionNode* New_AST_AR_EXP_VariableOperandNode(char *alias, char *property) {
 	AST_ArithmeticExpressionNode *node = malloc(sizeof(AST_ArithmeticExpressionNode));
 	node->type = AST_AR_EXP_OPERAND;
 	node->operand.type = AST_AR_EXP_VARIADIC;

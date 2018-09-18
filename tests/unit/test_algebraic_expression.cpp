@@ -138,7 +138,7 @@ class AlgebraicExpressionTest: public ::testing::Test {
         int labels[11] = {person_label, person_label, person_label, person_label, person_label, person_label,
                         country_label, country_label, country_label, country_label, country_label};
 
-        DataBlockIterator *it;
+        DataBlockIterator *it = NULL;
         Graph_CreateNodes(g, node_count, labels ,&it);
 
         // Assign attributes to nodes.
@@ -304,7 +304,7 @@ class AlgebraicExpressionTest: public ::testing::Test {
     QueryGraph *_build_query_graph(Graph *g) {
         /* Query
         * MATCH (p:Person)-[ef:friend]->(f:Person)-[ev:visit]->(c:City)-[ew:war]->(e:City) */
-        QueryGraph *q = QueryGraph_New();
+        QueryGraph *q = NewQueryGraph_WithCapacity(1, 1);
 
         // The following indicies are synced with Graph_AddRelation call order
         // within _build_graph, this is not ideal, but for now this will do.

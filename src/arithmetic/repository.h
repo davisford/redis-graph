@@ -16,5 +16,6 @@
 void Agg_GetFunc(const char* name, AggCtx** ctx);
 bool Agg_FuncExists(const char* name);
 int Agg_RegisterFunc(const char* name, AggFuncInit f);
+void Agg_RegistryFree();
 
 #endif

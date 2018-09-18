@@ -97,7 +97,7 @@ typedef struct {
         struct {
             GraphEntity **entity;
             char *entity_alias;
-			char *entity_prop;
+            char *entity_prop;
 		} variadic;
     };
     AR_OperandNodeType type;
@@ -148,5 +148,8 @@ AR_ExpNode* AR_EXP_BuildFromAST(const AST_ArithmeticExpressionNode *exp, const Q
 
 /* Free arithmetic expression tree. */
 void AR_EXP_Free(AR_ExpNode *root);
+
+/* Free map of registered functions */
+void AR_RegisterFree();
 
 #endif

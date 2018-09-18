@@ -148,7 +148,7 @@ RedisModuleString** _Bulk_Insert_Insert_Nodes(RedisModuleCtx *ctx, RedisModuleSt
                                               int *argc, Graph *g, const char *graph_name,
                                               size_t *nodes) {
     Node *n;                        // Current node.
-    DataBlockIterator *it;          // Iterator over nodes.
+    DataBlockIterator *it = NULL;   // Iterator over nodes.
     long long nodes_to_create = 0;  // Total number of nodes to create.
 
     if(*argc < 1 || RedisModule_StringToLongLong(*argv++, &nodes_to_create) != REDISMODULE_OK) {

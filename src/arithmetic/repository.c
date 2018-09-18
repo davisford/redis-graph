@@ -24,7 +24,7 @@ static void __agg_initRegistry() {
 int Agg_RegisterFunc(const char* name, AggFuncInit f) {
     __agg_initRegistry();
     __aggFuncEntry *e = malloc(sizeof(__aggFuncEntry));
-    e->name = strdup(name);
+    e->name = name;
     e->func = f;
     return Vector_Push(__aggRegisteredFuncs, e);
 }
@@ -58,4 +58,13 @@ void Agg_GetFunc(const char* name, AggCtx** ctx) {
         }
     }
     *ctx = NULL;
+}
+
+void Agg_RegistryFree() {
+    __aggFuncEntry *e = NULL;
+    for (int i = 0; i < Vector_Size(__aggRegisteredFuncs); i++) {
+        Vector_Get(__aggRegisteredFuncs, i, &e);
+        free(e);
+    }
+    Vector_Free(__aggRegisteredFuncs);
 }

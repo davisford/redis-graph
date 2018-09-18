@@ -37,6 +37,8 @@ DataBlockIterator *DataBlockIterator_Clone (
     const DataBlockIterator *it  // Iterator to clone.
 );
 
+void DataBlockIterator_Extend(DataBlockIterator *it, int added);
+
 // Returns the next item, unless we've reached the end
 // in which case NULL is returned.
 void *DataBlockIterator_Next(DataBlockIterator *iter);

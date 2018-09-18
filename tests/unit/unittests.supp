@@ -1,0 +1,29 @@
+{
+   <Cloned SIValue strings>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:strdup
+   fun:SI_StringVal
+}
+
+{
+   <Parser weirdnesses>
+   Memcheck:Leak
+   fun:malloc
+   fun:strdup
+   fun:yylex
+   fun:Query_Parse
+}
+
+{
+   <More parser>
+   Memcheck:Leak
+   fun:malloc
+   ...
+   fun:New_AST_AR_EXP_VariableOperandNode
+   fun:yy_reduce
+   fun:Parse
+   fun:Query_Parse
+}
+

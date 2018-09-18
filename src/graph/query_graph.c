@@ -211,10 +211,6 @@ QueryGraph* QueryGraph_New() {
     g->edge_count = 0;
     g->node_cap = DEFAULT_GRAPH_CAP;
     g->edge_cap = DEFAULT_GRAPH_CAP;
-    g->nodes = (Node**)malloc(sizeof(Node*) * g->node_cap);
-    g->edges = (Edge**)malloc(sizeof(Edge*) * g->edge_cap);
-    g->node_aliases = (char**)malloc(sizeof(char*) * g->node_cap);
-    g->edge_aliases = (char**)malloc(sizeof(char*) * g->edge_cap);
     return g;
 }
 
@@ -434,7 +430,7 @@ ResultSetStatistics CommitGraph(RedisModuleCtx *ctx, const QueryGraph *qg, Graph
         }
 
         // Create nodes and set properties.
-        DataBlockIterator *it;
+        DataBlockIterator *it = NULL;
         size_t graph_node_count = Graph_NodeCount(g);
         Graph_CreateNodes(g, node_count, labels, &it);
 

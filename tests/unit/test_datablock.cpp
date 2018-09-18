@@ -49,7 +49,7 @@ TEST_F(DataBlockTest, NewDataBlock) {
 TEST_F(DataBlockTest, AddItemToDataBlock) {
     DataBlock *dataBlock = DataBlock_New(1024, sizeof(int));
     size_t itemCount = 512;
-    DataBlockIterator *it;
+    DataBlockIterator *it = NULL;
     DataBlock_AddItems(dataBlock, itemCount, &it);
     EXPECT_EQ(dataBlock->itemCount, itemCount);
 
@@ -124,6 +124,7 @@ TEST_F(DataBlockTest, ScanDataBlock) {
     item = (int*)DataBlockIterator_Next(it);
     // EXPECT_EQ(item, NULL);
 
+    DataBlock_Free(dataBlock);
     DataBlockIterator_Free(it);
 }
 
@@ -141,6 +142,7 @@ TEST_F(DataBlockTest, GetItemBlock) {
         Block *block = DataBlock_GetItemBlock(dataBlock, i);
         EXPECT_EQ(block, dataBlock->blocks[i/BLOCK_CAP]);
     }
+    DataBlock_Free(dataBlock);
 }
 
 TEST_F(DataBlockTest, MigrateItem) {
@@ -161,4 +163,5 @@ TEST_F(DataBlockTest, MigrateItem) {
         EXPECT_EQ(*migratedItem, *item);
         EXPECT_EQ(dataBlock->itemCount, i);
     }
+    DataBlock_Free(dataBlock);
 }

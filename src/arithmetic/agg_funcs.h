@@ -22,5 +22,6 @@ AggCtx* Agg_PercDiscFunc();
 AggCtx* Agg_stDev();
 
 void Agg_RegisterFuncs();
+void Agg_Free();
 
 #endif

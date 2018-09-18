@@ -109,7 +109,7 @@ void ReturnClause_ReferredFunctions(const AST_ReturnNode *return_node, TrieMap *
 
 void Free_AST_ReturnElementNode(AST_ReturnElementNode *returnElementNode) {
 	if(returnElementNode != NULL) {
-		Free_AST_ArithmeticExpressionNode(returnElementNode->exp);
+		// Free_AST_ArithmeticExpressionNode(returnElementNode->exp);
 
 		if(returnElementNode->alias != NULL) {
 			free(returnElementNode->alias);

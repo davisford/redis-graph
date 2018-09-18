@@ -281,10 +281,17 @@ AR_ExpNode* AR_EXP_BuildFromAST(const AST_ArithmeticExpressionNode *exp, const Q
 
 void AR_EXP_Free(AR_ExpNode *root) {
     if(root->type == AR_EXP_OP) {
+        free(root->op.func_name);
+        if (root->op.type == AR_OP_AGGREGATE) AggCtx_Free(root->op.agg_func);
         for(int child_idx = 0; child_idx < root->op.child_count; child_idx++) {
             AR_EXP_Free(root->op.children[child_idx]);
         }
         free(root->op.children);
+    } else {
+        if (root->operand.type == AR_EXP_VARIADIC) {
+          free(root->operand.variadic.entity_alias);
+          if (root->operand.variadic.entity_prop) free(root->operand.variadic.entity_prop);
+        }
     }
     free(root);
 }
@@ -700,4 +707,8 @@ void AR_RegisterFuncs() {
     _toLower("id", &lower_func_name[0], &lower_func_name_len);
     AR_RegFunc(lower_func_name, lower_func_name_len, AR_ID);
     lower_func_name_len = 32;
+}
+
+void AR_RegisterFree() {
+    TrieMap_Free(__aeRegisteredFuncs, TrieMap_NOP_CB);
 }

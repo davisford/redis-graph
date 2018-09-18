@@ -56,7 +56,7 @@ class IndexTest: public ::testing::Test {
       }
 
       // Populate graph with nodes
-      DataBlockIterator *it;
+      DataBlockIterator *it = NULL;
       Graph_CreateNodes(g, n, label_ids, &it);
 
       // Variables to store data for node properties

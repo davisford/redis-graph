@@ -27,6 +27,10 @@ DataBlockIterator *DataBlockIterator_Clone(const DataBlockIterator *it) {
     return DataBlockIterator_New(it->_start_block, it->_start_pos, it->_end_pos, it->_step);
 }
 
+void DataBlockIterator_Extend(DataBlockIterator *it, int added) {
+    it->_end_pos += added;
+}
+
 void *DataBlockIterator_Next(DataBlockIterator *iter) {
     assert(iter);
     // Have we reached the end of our iterator?

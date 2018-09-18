@@ -321,7 +321,7 @@ void Graph_CreateNodes(Graph* g, size_t n, int* labels, DataBlockIterator **it) 
 void Graph_ConnectNodes(Graph *g, EdgeDesc *connections, size_t connectionCount, DataBlockIterator **edges) {
     assert(g && connections);
 
-    DataBlockIterator *iter;
+    DataBlockIterator *iter = NULL;
     GrB_Matrix adj = Graph_GetAdjacencyMatrix(g);
 
     EdgeID edgeID = Graph_EdgeCount(g);
