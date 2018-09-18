@@ -63,6 +63,12 @@ test: build
 		./$$t; \
 	done
 
+test_valgrind: build
+	for t in $(TEST_EXECUTABLES); do \
+		valgrind --leak-resolution=low --quiet \
+		--leak-check=full --show-possibly-lost=no ./$$t; \
+	done
+
 clean:
 	rm -f gtest.a gtest_main.a *.o *.run
 .PHONY: clean
