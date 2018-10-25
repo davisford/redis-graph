@@ -5,9 +5,9 @@
 * modified with the Commons Clause restriction.
 */
 
-#include "graph.h"
+#include "../graph.h"
 #include "graph_type.h"
-#include "../GraphBLASExt/tuples_iter.h"
+#include "../../GraphBLASExt/tuples_iter.h"
 
 /* Declaration of the type for redis registration. */
 RedisModuleType *GraphRedisModuleType;
