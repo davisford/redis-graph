@@ -69,7 +69,6 @@ void _RdbLoadEntity(RedisModuleIO *rdb, GraphEntity *e) {
     for(int i = 0; i < propCount; i++) {
         propName[i] = RedisModule_LoadStringBuffer(rdb, &propNameLen);
         SIType t = RedisModule_LoadUnsigned(rdb);
-        SIValue val;
         if(t & SI_NUMERIC) {
             propValue[i] = SI_DoubleVal(RedisModule_LoadDouble(rdb));
         } else {

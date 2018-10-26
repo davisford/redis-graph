@@ -7,7 +7,6 @@
 
 #include <assert.h>
 
-#include "../../util/arr.h"
 #include "../../algorithms/all_paths.h"
 #include "./op_cond_var_len_traverse.h"
 
@@ -51,7 +50,7 @@ OpResult CondVarLenTraverseConsume(OpBase *opBase, Record *r) {
         res = child->consume(child, r);
         if(res != OP_OK) return res;
         Node *srcNode = Record_GetNode(*r, op->srcNodeAlias);
-        op->pathsCount = AllPaths(op->gc->g, op->relationID, srcNode->id, op->minHops, op->maxHops, &op->pathsCap, &op->paths, op->gc->_writelocked);
+        op->pathsCount = AllPaths(op->gc->g, op->relationID, srcNode->id, op->minHops, op->maxHops, &op->pathsCap, &op->paths, op->gc->writelocked);
     }
 
     Path p = op->paths[--op->pathsCount];

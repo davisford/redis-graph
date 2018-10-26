@@ -86,7 +86,6 @@ void _referred_edge_ends(TrieMap *ref_entities, const QueryGraph *q) {
  * therefor mark both variable length edge ends as referenced. */
 void _referred_variable_length_edges(TrieMap *ref_entities, Vector *matchPattern, const QueryGraph *q) {
     Edge *e;
-    AST_LinkEntity *edge;
     AST_GraphEntity *match_element;
 
     for(int i = 0; i < Vector_Size(matchPattern); i++) {
@@ -125,7 +124,6 @@ AlgebraicExpression** _AlgebraicExpression_IsolateVariableLenExps(AlgebraicExpre
         /* We only care about destination node, in the case of a variable length edge 
          * expression where there's a labeled source node, then the execution plan 
          * will turn that node into a label scan and discard of the source node matrix. */
-        Edge *e = exp->edge;
         Node *dest = exp->dest_node;
 
         res[newExpCount++] = exp;
