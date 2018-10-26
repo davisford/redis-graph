@@ -16,7 +16,7 @@
 /* OP Traverse */
 typedef struct {
     OpBase op;
-    Graph *g;
+    GraphContext *gc;
     const char *srcNodeAlias;   /* Node set by operation. */
     const char *destNodeAlias;  /* Node set by operation. */
     int relationID;             /* Relation we're traversing. */
@@ -27,7 +27,7 @@ typedef struct {
     Path *paths;                /* Array of paths. */
 } CondVarLenTraverse;
 
-OpBase* NewCondVarLenTraverseOp(AlgebraicExpression *ae, unsigned int minHops, unsigned int maxHops, Graph *g);
+OpBase* NewCondVarLenTraverseOp(AlgebraicExpression *ae, unsigned int minHops, unsigned int maxHops, GraphContext *gc);
 OpResult CondVarLenTraverseConsume(OpBase *opBase, Record *r);
 OpResult CondVarLenTraverseReset(OpBase *ctx);
 void CondVarLenTraverseFree(OpBase *ctx);

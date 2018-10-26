@@ -22,7 +22,8 @@ void _AllPaths
     Path *path,             // Current path.
     size_t *pathsCount,     // Number of paths constructed.
     size_t *pathsCap,       // Paths array capacity.
-    Path **paths            // Paths constructed.
+    Path **paths,           // Paths constructed.
+    bool locked
 )
 {
         if(hop >= minHops && hop <= maxHops) {
@@ -44,7 +45,7 @@ void _AllPaths
 
         NodeID frontierID = frontier->id;
         Vector *outGoingEdges = NewVector(Edge*, 32);
-        Graph_GetNodeEdges(g, frontier, outGoingEdges, GRAPH_EDGE_DIR_OUTGOING, relationID);
+        Graph_GetNodeEdges(g, frontier, outGoingEdges, GRAPH_EDGE_DIR_OUTGOING, relationID, locked);
         size_t outGoingEdgesCount = Vector_Size(outGoingEdges);
 
         for(size_t i = 0; i < outGoingEdgesCount; i++) {
@@ -62,7 +63,7 @@ void _AllPaths
 
             *path = Path_append(*path, e);
 
-            _AllPaths(g, Edge_GetDestNode(e), relationID, relation, minHops, maxHops, hop+1, visited, path, pathsCount, pathsCap, paths);
+            _AllPaths(g, Edge_GetDestNode(e), relationID, relation, minHops, maxHops, hop+1, visited, path, pathsCount, pathsCap, paths, locked);
 
             Path_pop(*path);
 
@@ -81,12 +82,13 @@ size_t AllPaths
     unsigned int minLen,
     unsigned int maxLen,
     size_t *pathsCap,
-    Path **paths
+    Path **paths,
+    bool locked
 )
 {
     assert(g && minLen >= 0 && minLen <= maxLen && pathsCap && paths);
 
-    GrB_Matrix relation = Graph_GetRelation(g, relationID);    
+    GrB_Matrix relation = Graph_GetRelation(g, relationID, locked);
     /* Avoid revisiting edges along a constructed path by, marking visited edges,
      * for every traversed edge (A)-[]->(B) visited[A,B] is set. */
     GrB_Matrix visited;
@@ -97,7 +99,7 @@ size_t AllPaths
     Path p = Path_new(pathLen);
 
     size_t pathsCount = 0;
-    _AllPaths(g, Graph_GetNode(g, src), relationID, relation, minLen, maxLen, 0, visited, &p, &pathsCount, pathsCap, paths);
+    _AllPaths(g, Graph_GetNode(g, src), relationID, relation, minLen, maxLen, 0, visited, &p, &pathsCount, pathsCap, paths, locked);
 
     Path_free(p);
     GrB_Matrix_free(&visited);

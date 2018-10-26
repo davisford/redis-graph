@@ -56,10 +56,6 @@ int RedisModule_OnLoad(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) 
     Agg_RegisterFuncs();    // Register aggregation functions.
     if (!_Setup_ThreadPOOL()) return REDISMODULE_ERR;
 
-    // Initialize read write lock.
-    if (pthread_rwlock_init(&_rwlock, NULL)) return REDISMODULE_ERR;
-    _writelocked = false;
-
     if (RedisModule_Init(ctx, "graph", REDISGRAPH_MODULE_VERSION, REDISMODULE_APIVER_1) == REDISMODULE_ERR) {
         return REDISMODULE_ERR;
     }
